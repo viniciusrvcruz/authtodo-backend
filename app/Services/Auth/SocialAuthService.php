@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Services\Auth;
+
+use App\Enums\AuthProviderEnum;
+use App\Models\User;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+
+class SocialAuthService
+{
+    public function handleProviderCallback(AuthProviderEnum $provider): RedirectResponse
+    {
+        try {
+
+            $providerUser = Socialite::driver($provider->value)->user();
+
+        } catch (Exception $e) {
+            return redirect('/up?error=true');
+        }
+
+        $user = User::firstOrCreate(
+            [ 'email' => $providerUser->email ],
+            [ 'name' => $providerUser->name ]
+        );
+
+        Auth::login($user);
+
+        return redirect('/up?user_email=' . $user->email . '&user_id=' . $user->id);
+    }
+}

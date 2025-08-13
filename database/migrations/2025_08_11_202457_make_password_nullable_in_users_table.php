@@ -9,8 +9,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('auth_provider')->nullable()->after('email');
-
             $table->string('password')->nullable()->change();
         });
     }
@@ -19,8 +17,6 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('password')->nullable(false)->change();
-
-            $table->dropColumn('auth_provider');
         });
     }
 };

@@ -17,17 +17,14 @@ class SocialAuthService
 
             $providerUser = Socialite::driver($provider->value)->user();
 
+            $user = User::firstOrCreate(
+                [ 'email' => $providerUser->email ],
+                [ 'name' => $providerUser->name ]
+            );
+        
         } catch (Exception $e) {
             return redirect(config('app.frontend_url') . '/login/error');
         }
-
-        $user = User::firstOrCreate(
-            [
-                'email' => $providerUser->email,
-                'auth_provider' => $provider->value,
-            ],
-            [ 'name' => $providerUser->name ]
-        );
 
         Auth::login($user);
 

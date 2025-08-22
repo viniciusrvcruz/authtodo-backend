@@ -10,6 +10,15 @@ services:
     depends_on:
       authtodo_postgresql:
         condition: service_healthy
+  authtodo_queue:
+    build: ./docker/php
+    command: php artisan queue:work
+    container_name: authtodo_queue
+    volumes:
+      - .:/app
+    depends_on:
+      - authtodo_api
+      - authtodo_postgresql
   authtodo_postgresql:
     image: postgres:17
     container_name: authtodo_postgresql

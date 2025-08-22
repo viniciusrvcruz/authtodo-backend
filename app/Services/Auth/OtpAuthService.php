@@ -4,6 +4,7 @@ namespace App\Services\Auth;
 
 use App\Models\User;
 use App\ValueObjects\Email;
+use Exception;
 
 class OtpAuthService
 {
@@ -14,10 +15,16 @@ class OtpAuthService
         $user->sendOneTimePassword();
     }
 
-    // public function validate(string $code, Email $email): bool
-    // {
-    //     return $this->otp->for($user)->validate($code);
-    // }
+    public function verify(string $code, Email $email): void
+    {
+        $user = $this->firstOrCreateUser($email);
+
+        $result = $user->attemptLoginUsingOneTimePassword($code);
+
+        if (! $result->isOk()) throw new Exception('Invalid code');
+
+        request()->session()->regenerate();
+    }
 
     private function firstOrCreateUser(Email $email): User
     {

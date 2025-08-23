@@ -2,9 +2,9 @@
 
 namespace App\Services\Auth;
 
+use App\Exceptions\InvalidOneTimePasswordException;
 use App\Models\User;
 use App\ValueObjects\Email;
-use Exception;
 
 class OtpAuthService
 {
@@ -21,9 +21,7 @@ class OtpAuthService
 
         $result = $user->attemptLoginUsingOneTimePassword($code);
 
-        if (! $result->isOk()) throw new Exception('Invalid code');
-
-        request()->session()->regenerate();
+        if (! $result->isOk()) throw new InvalidOneTimePasswordException('Invalid code');
     }
 
     private function firstOrCreateUser(Email $email): User

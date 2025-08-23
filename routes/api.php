@@ -5,7 +5,7 @@ use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('auth')->group(function () {
+Route::prefix('auth')->middleware(['throttle:otp-group'])->group(function () {
     Route::post('/otp/send', [OtpAuthController::class, 'send'])->name('auth.otp.send');
     Route::post('/otp/verify', [OtpAuthController::class, 'verify'])->name('auth.otp.verify');
 });

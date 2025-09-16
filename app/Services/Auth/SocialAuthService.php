@@ -28,6 +28,6 @@ class SocialAuthService
 
         Auth::login($user);
 
-        return redirect(config('app.frontend_url'));
+        return redirect(config('app.frontend_url') . '/home');
     }
 }

@@ -86,7 +86,7 @@ describe('social authentication routes', function () {
         $response = $this->get("/auth/{$provider}/callback");
     
         $this->assertAuthenticated();
-        $response->assertRedirect(config('app.frontend_url'));
+        $response->assertRedirect(config('app.frontend_url') . '/home');
     })->with('authProviders');
     
     it('redirects to frontend error page when the oauth callback url is requested directly', function (string $provider) {

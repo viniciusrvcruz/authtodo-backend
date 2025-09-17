@@ -26,12 +26,6 @@ class OtpAuthService
 
     private function firstOrCreateUser(Email $email): User
     {
-        $temporaryName = strstr($email->getEmail(), '@', true);
-
-        return User::where('email', $email->getEmail())
-            ->firstOrCreate(
-                [ 'email' => $email->getEmail() ],
-                [ 'name' => $temporaryName ]
-            );
+        return User::firstOrCreate(['email' => $email->getEmail()]);
     }
 }

@@ -15,7 +15,7 @@ services:
 
   authtodo_queue:
     build: ./docker/php
-    command: php artisan queue:work
+    command: ["bash", "/app/docker/php/wait-for-api.sh"]
     container_name: authtodo_queue
     volumes:
       - .:/app

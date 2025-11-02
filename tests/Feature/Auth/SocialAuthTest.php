@@ -92,7 +92,7 @@ describe('social authentication routes', function () {
     it('redirects to frontend error page when the oauth callback url is requested directly', function (string $provider) {
         $response = $this->get("/auth/{$provider}/callback");
     
-        $response->assertRedirect(config('app.frontend_url') . '/login/error');
+        $response->assertRedirect(config('app.frontend_url') . '/login?error=true');
     })->with('authProviders');
     
     it('returns 404 if the passed provider is invalid', function () {

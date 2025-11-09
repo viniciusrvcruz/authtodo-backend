@@ -7,18 +7,24 @@ services:
       - .:/app
     ports:
       - 80:80
+    networks:
+      - authtodo_network
     depends_on:
       authtodo_postgresql:
         condition: service_healthy
+
   authtodo_queue:
     build: ./docker/php
-    command: php artisan queue:work
+    command: ["bash", "/app/docker/php/wait-for-api.sh"]
     container_name: authtodo_queue
     volumes:
       - .:/app
     depends_on:
       - authtodo_api
       - authtodo_postgresql
+    networks:
+      - authtodo_network
+
   authtodo_postgresql:
     image: postgres:17
     container_name: authtodo_postgresql
@@ -35,6 +41,11 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - authtodo_network
+
+networks:
+  authtodo_network:
 
 volumes:
   authtodo_pgdata:

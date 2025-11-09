@@ -5,6 +5,7 @@ namespace App\Services\Auth;
 use App\Exceptions\InvalidOneTimePasswordException;
 use App\Models\User;
 use App\ValueObjects\Email;
+use Illuminate\Support\Facades\Session;
 
 class OtpAuthService
 {
@@ -22,16 +23,12 @@ class OtpAuthService
         $result = $user->attemptLoginUsingOneTimePassword($code);
 
         if (! $result->isOk()) throw new InvalidOneTimePasswordException('Invalid code');
+
+        Session::regenerate();
     }
 
     private function firstOrCreateUser(Email $email): User
     {
-        $temporaryName = strstr($email->getEmail(), '@', true);
-
-        return User::where('email', $email->getEmail())
-            ->firstOrCreate(
-                [ 'email' => $email->getEmail() ],
-                [ 'name' => $temporaryName ]
-            );
+        return User::firstOrCreate(['email' => $email->getEmail()]);
     }
 }

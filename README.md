@@ -16,6 +16,8 @@
 
 <br>
 
+> 🔗 **Frontend:** [AuthTodo Frontend](https://github.com/viniciusrvcruz/authtodo-frontend)
+
 ## 🎯 Sobre o Projeto
 
 AuthTodo Backend é uma API robusta que combina gerenciamento de tarefas com múltiplos métodos de autenticação. O projeto oferece autenticação via OAuth (Google e GitHub) e OTP (One-Time Password) por email, proporcionando flexibilidade e segurança aos usuários.

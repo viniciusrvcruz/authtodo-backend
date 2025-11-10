@@ -142,7 +142,7 @@ cd authtodo-backend
 cp .env.example .env
 
 # Suba os containers (o setup é automático)
-docker-compose up -d
+docker compose up -d
 ```
 
 O processo de instalação é automatizado após subir os containers:
@@ -201,7 +201,7 @@ QUEUE_CONNECTION=database
 ### Iniciando o Projeto
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 A API estará disponível em `http://localhost`.

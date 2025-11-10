@@ -220,9 +220,6 @@ O projeto utiliza **Pest PHP** para testes.
 # Executar todos os testes
 docker exec -it authtodo_api php artisan test
 
-# Executar testes com coverage
-docker exec -it authtodo_api php artisan test --coverage
-
 # Executar testes específicos
 docker exec -it authtodo_api php artisan test --filter=OtpAuthTest
 ```

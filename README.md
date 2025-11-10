@@ -138,12 +138,14 @@ authtodo-backend/
 git clone https://github.com/viniciusrvcruz/authtodo-backend.git
 cd authtodo-backend
 
+# Copie o arquivo de ambiente
+cp .env.example .env
+
 # Suba os containers (o setup é automático)
 docker-compose up -d
 ```
 
-O processo de instalação é totalmente automatizado:
-- ✅ Copia automaticamente o `.env.example` para `.env` (se não existir)
+O processo de instalação é automatizado após subir os containers:
 - ✅ Instala as dependências do Composer
 - ✅ Gera a chave da aplicação (APP_KEY)
 - ✅ Executa as migrations do banco de dados
